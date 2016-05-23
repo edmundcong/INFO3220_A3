@@ -1,0 +1,52 @@
+\hypertarget{classUniverseComponent}{}\section{Universe\+Component Class Reference}
+\label{classUniverseComponent}\index{Universe\+Component@{Universe\+Component}}
+Inheritance diagram for Universe\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classUniverseComponent}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Universe\+Component} (Universe\+Component\+Type type, const std\+::string \&name, const std\+::string \&parent\+Name=\char`\"{}\char`\"{})\hypertarget{classUniverseComponent_ae27a92b369e5eab3016d1a570766a974}{}\label{classUniverseComponent_ae27a92b369e5eab3016d1a570766a974}
+
+\item 
+virtual void {\bfseries render} (Q\+Painter \&painter) const =0\hypertarget{classUniverseComponent_ab5a74e2a809f24509770c85fcfb4f2c5}{}\label{classUniverseComponent_ab5a74e2a809f24509770c85fcfb4f2c5}
+
+\item 
+virtual void {\bfseries render\+Label} (Q\+Painter \&painter) const =0\hypertarget{classUniverseComponent_aa35a0218177fa8b0852cf041dbabd43a}{}\label{classUniverseComponent_aa35a0218177fa8b0852cf041dbabd43a}
+
+\item 
+virtual void {\bfseries add\+Attraction\+To} (\hyperlink{classUniverseBody}{Universe\+Body} \&other) const =0\hypertarget{classUniverseComponent_a1bee459df6e2e4ba2bdfee7ce0db1b1f}{}\label{classUniverseComponent_a1bee459df6e2e4ba2bdfee7ce0db1b1f}
+
+\item 
+virtual void {\bfseries reset\+Forces} ()=0\hypertarget{classUniverseComponent_a487cb9ffee239439d73216e413890c66}{}\label{classUniverseComponent_a487cb9ffee239439d73216e413890c66}
+
+\item 
+virtual void {\bfseries add\+Attraction\+From} (const \hyperlink{classUniverseComponent}{Universe\+Component} \&component)=0\hypertarget{classUniverseComponent_ad7d582f1e3cc26b30b25920820f006d4}{}\label{classUniverseComponent_ad7d582f1e3cc26b30b25920820f006d4}
+
+\item 
+virtual void {\bfseries update\+Position} (int timestep)=0\hypertarget{classUniverseComponent_aac0500ee56b3aecbdcddc663efc96aed}{}\label{classUniverseComponent_aac0500ee56b3aecbdcddc663efc96aed}
+
+\item 
+virtual void {\bfseries convert\+Relative\+To\+Absolute} (double xp, double yp, double xv, double yv)=0\hypertarget{classUniverseComponent_adee9b6dda24030f697c1c9dc76a066f9}{}\label{classUniverseComponent_adee9b6dda24030f697c1c9dc76a066f9}
+
+\item 
+void {\bfseries set\+Name} (const std\+::string \&name)\hypertarget{classUniverseComponent_ac69d32c49d432e23a1435828a3e97d4e}{}\label{classUniverseComponent_ac69d32c49d432e23a1435828a3e97d4e}
+
+\item 
+const std\+::string \& {\bfseries get\+Name} () const\hypertarget{classUniverseComponent_a7115f8b2b4f1877d39e4280d889d5bc5}{}\label{classUniverseComponent_a7115f8b2b4f1877d39e4280d889d5bc5}
+
+\item 
+const std\+::string \& {\bfseries get\+Parent\+Name} () const\hypertarget{classUniverseComponent_a62a75461599a15b5c28e0daca8669b29}{}\label{classUniverseComponent_a62a75461599a15b5c28e0daca8669b29}
+
+\item 
+Universe\+Component\+Type {\bfseries get\+Type} () const\hypertarget{classUniverseComponent_ad601325204de75c91829655f3b735f74}{}\label{classUniverseComponent_ad601325204de75c91829655f3b735f74}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+universecomponent.\+h\end{DoxyCompactItemize}
