@@ -4,9 +4,7 @@
 #include "config.h"
 #include "universecomponent.h"
 #include "zodiac.h"
-#include "timestep.h"
-#include "view.h"
-#include "zoom.h"
+#include "visitordisplay.h"
 #include <QDialog>
 #include <QTimer>
 #include <list>
@@ -25,6 +23,8 @@ public:
     explicit Dialog(QWidget *parent = 0);
     virtual ~Dialog();
 
+    void displayInformation();
+
 private slots:
     //prepare the next frame, called by the timer
     void nextFrame();
@@ -38,6 +38,8 @@ private slots:
     void toggleAccelerate();
     //pressed decelerate
     void toggleDecelerate();
+    //centre view
+    void centreView();
 
 private:
     //method called when the window is being redrawn
@@ -61,14 +63,14 @@ private:
     //buttons for UI stage 3
     QPushButton* m_buttonAccelerate;
     QPushButton* m_buttonDecelerate;
-//    View* m_buttonView;
-//    Zoom* m_buttonZoom;
+    QPushButton* m_centre;
 
     int m_speed = 1000;
     int m_numScheduledScalings = 0;
     qreal m_scale = 1;
 
     QPainter m_painter;
+    char m_key;
 
     int m_width; //width of the window
     int m_height; //height of the window

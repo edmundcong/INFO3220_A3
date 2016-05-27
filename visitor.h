@@ -1,16 +1,17 @@
 #ifndef VISITOR_H
 #define VISITOR_H
 
-#include "view.h"
-#include "zoom.h"
-#include "timestep.h"
+#include <iostream>
+#include "universecomponent.h"
+
+class UniverseBody;
+class UniverseComposite;
 
 class Visitor
 {
 public:
-    virtual void visit(View *view_Item) = 0;
-    virtual void visit(Zoom *zoom_Item) = 0;
-    virtual void visit(Timestep *timestep_Item) = 0;
+    virtual void visit(UniverseBody & body) = 0;
+    virtual void visit(UniverseComposite & composite) = 0;
 };
 
 #endif // VISITOR_H

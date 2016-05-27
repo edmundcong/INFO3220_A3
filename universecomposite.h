@@ -1,10 +1,10 @@
 #ifndef UNIVERSECOMPOSITE_H
 #define UNIVERSECOMPOSITE_H
 
-#include "universecomponent.h"
+//#include "universecomponent.h"
+#include "visitor.h"
 #include <string>
 #include <vector>
-
 
 class UniverseComposite : public UniverseComponent {
 
@@ -17,6 +17,10 @@ public:
 
     //build up the composition
     virtual void add(UniverseComponent* component) { m_children.push_back(component); }
+
+    //Accept visitor
+    virtual void accept(Visitor& v) { v.visit(*this); }
+    virtual std::vector<UniverseComponent*> getChildren() { return m_children; }
 
     /*********************************************
      * Inherited methods from UniverseComponent

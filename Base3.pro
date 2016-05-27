@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     universecomposite.cpp \
     config.cpp \
     zodiac.cpp \
-    universecomponentfactory.cpp
+    universecomponentfactory.cpp \
+    visitordisplay.cpp
 
 HEADERS  += dialog.h \
     universecomponent.h \
@@ -30,7 +31,7 @@ HEADERS  += dialog.h \
     zodiac.h \
     universecomponentfactory.h \
     visitor.h \
-    visitable.h
+    visitordisplay.h
 
 FORMS    += dialog.ui
 

@@ -1,7 +1,7 @@
 #ifndef UNIVERSEBODY_H
 #define UNIVERSEBODY_H
 
-#include "universecomponent.h"
+#include "visitor.h"
 
 class UniverseBody : public UniverseComponent
 {
@@ -12,6 +12,9 @@ public:
             const std::string& parentName = "");
 
     virtual ~UniverseBody() {}
+
+    //Accept visitor
+    virtual void accept(Visitor & v) { v.visit(*this); }
 
     /*********************************************
      * Inherited methods from UniverseComponent
