@@ -28,7 +28,9 @@ HEADERS  += dialog.h \
     universebody.h \
     config.h \
     zodiac.h \
-    universecomponentfactory.h
+    universecomponentfactory.h \
+    visitor.h \
+    visitable.h
 
 FORMS    += dialog.ui
 

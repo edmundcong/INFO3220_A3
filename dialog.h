@@ -4,9 +4,13 @@
 #include "config.h"
 #include "universecomponent.h"
 #include "zodiac.h"
+#include "timestep.h"
+#include "view.h"
+#include "zoom.h"
 #include <QDialog>
 #include <QTimer>
 #include <list>
+#include <QPainter>
 
 
 namespace Ui {
@@ -30,6 +34,10 @@ private slots:
     void toggleZodiacs();
     //toggle rendering of labels
     void toggleLabels();
+    //pressed accelerate
+    void toggleAccelerate();
+    //pressed decelerate
+    void toggleDecelerate();
 
 private:
     //method called when the window is being redrawn
@@ -38,6 +46,8 @@ private:
     void pause(bool pause);
     //handle key presses
     void keyPressEvent(QKeyEvent *event);
+    void wheelEvent(QWheelEvent *);
+
 
 private:
     Ui::Dialog* ui;
@@ -47,6 +57,18 @@ private:
     QPushButton* m_buttonPause;
     QPushButton* m_buttonZodiacs;
     QPushButton* m_buttonLabels;
+
+    //buttons for UI stage 3
+    QPushButton* m_buttonAccelerate;
+    QPushButton* m_buttonDecelerate;
+//    View* m_buttonView;
+//    Zoom* m_buttonZoom;
+
+    int m_speed = 1000;
+    int m_numScheduledScalings = 0;
+    qreal m_scale = 1;
+
+    QPainter m_painter;
 
     int m_width; //width of the window
     int m_height; //height of the window
