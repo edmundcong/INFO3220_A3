@@ -237,8 +237,7 @@ void Dialog::paintEvent(QPaintEvent *event)
            for scaling reasons. we need to find some sort of way to process both these
            coordinates into 1 x value and 1 y value s.t. pressing the "View All Planets"
            button will show the 2 furthest planets on the boarder and all other planets in between */
-        m_painter.scale(m_sx,m_sy);
-        m_scaleFlag = false;
+        m_painter.scale(m_sx/10,m_sy/10);
     } else {
         //Scales the coordinate system by (sx, sy).
         m_painter.scale(m_scale, m_scale);
@@ -262,10 +261,12 @@ void Dialog::paintEvent(QPaintEvent *event)
 
 void Dialog::wheelEvent (QWheelEvent * event )
 {
+        m_scaleFlag = false;
         m_scale+=(event->delta()/120); //or use any other step for zooming
         if (m_scale == 0){ //scale = 0 will turn screen black
             m_scale = 1;
         }
+
 //        std::cout << m_scale << std::endl;
 }
 
@@ -285,8 +286,8 @@ void Dialog::centreView ()
 void Dialog::viewAll()
 {
     m_scaleFlag = true;
-    m_sx = -3.74027e+12/m_scale;
-    m_sy = -1.83966e+12/m_scale;
+    m_sx = 1;
+    m_sy = 1;
     //m_scale = 3.74027e+12; //or use any other step for zooming
 //    std::cout << m_scale << std::endl;
 }
