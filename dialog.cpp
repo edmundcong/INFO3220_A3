@@ -47,13 +47,17 @@ Dialog::Dialog(QWidget *parent)
     m_buttonDecelerate = new QPushButton("Decelerate", this);
     m_centre = new QPushButton("Centre View", this);
     m_buttonDisplayInfo = new QPushButton("Display bodies", this);
+    m_allObjects = new QPushButton("View all planets", this);
+
     m_buttonPause->setGeometry(QRect(QPoint(0, 0), QSize(100, 50)));
     m_buttonZodiacs->setGeometry(QRect(QPoint(100, 0), QSize(100, 50)));
     m_buttonLabels->setGeometry(QRect(QPoint(200, 0), QSize(100, 50)));
     m_buttonAccelerate->setGeometry(QRect(QPoint(300, 0), QSize(100, 50)));
     m_buttonDecelerate->setGeometry(QRect(QPoint(400, 0), QSize(100, 50)));
-     m_centre->setGeometry(QRect(QPoint(500, 0), QSize(100, 50)));
+    m_centre->setGeometry(QRect(QPoint(500, 0), QSize(100, 50)));
     m_buttonDisplayInfo->setGeometry(QRect(QPoint(600,0), QSize(100, 50)));
+    m_allObjects->setGeometry(QRect(QPoint(700,0), QSize(100, 50)));
+
     connect(m_buttonAccelerate, SIGNAL(released()), this, SLOT(toggleAccelerate()));
     connect(m_buttonDecelerate, SIGNAL(released()), this, SLOT(toggleDecelerate()));
     connect(m_buttonPause, SIGNAL(released()), this, SLOT(togglePause()));
@@ -61,6 +65,7 @@ Dialog::Dialog(QWidget *parent)
     connect(m_buttonLabels, SIGNAL(released()), this, SLOT(toggleLabels()));
     connect(m_centre, SIGNAL(released()), this, SLOT(centreView()));
     connect(m_buttonDisplayInfo, SIGNAL(released()), this, SLOT(displayInformation()));
+    connect(m_allObjects, SIGNAL(released()), this, SLOT(viewAll()));
 
     //setup timer
     m_timer = new QTimer(this);
@@ -79,7 +84,9 @@ Dialog::~Dialog()
     delete m_zodiacs;
     delete m_buttonAccelerate;
     delete m_buttonDecelerate;
-
+    delete m_centre;
+    delete m_buttonDisplayInfo;
+    delete m_allObjects;
 }
 
 void Dialog::toggleZodiacs()
@@ -102,7 +109,7 @@ void Dialog::toggleAccelerate()
     //timer cant have negative intervals
     if (m_speed != 0)
     {
-        m_speed = m_speed - 1000;
+        m_speed = m_speed - 250;
     }
     m_timer->start((m_speed) / m_config->getFramesPerSecond());
 
@@ -113,7 +120,7 @@ void Dialog::toggleAccelerate()
 void Dialog::toggleDecelerate()
 {
     //speed can always be increased
-    m_speed = m_speed + 1000;
+    m_speed = m_speed + 250;
     m_timer->start((m_speed) / m_config->getFramesPerSecond());
 
     std::cout << m_speed << std::endl;
@@ -221,8 +228,21 @@ void Dialog::paintEvent(QPaintEvent *event)
         break;
     }
 
-    m_painter.scale(m_scale, m_scale);
-
+    if (m_scaleFlag == true)
+    {
+        /* ignore these 2 values. we need to change these 2 x and y
+           values to utilise the furthest 2 objects we get retured from our
+           visitor search algorithm we run on our universe.
+           problem: how do we do this? just plugging in the x and y values wont work
+           for scaling reasons. we need to find some sort of way to process both these
+           coordinates into 1 x value and 1 y value s.t. pressing the "View All Planets"
+           button will show the 2 furthest planets on the boarder and all other planets in between */
+        m_painter.scale(-3.74027,-1.83966);
+        m_scaleFlag = false;
+    } else {
+        //Scales the coordinate system by (sx, sy).
+        m_painter.scale(m_scale, m_scale);
+    }
     if(m_renderZodiacs)
     {
         for(auto zodiac : *m_zodiacs)
@@ -246,6 +266,7 @@ void Dialog::wheelEvent (QWheelEvent * event )
         if (m_scale == 0){ //scale = 0 will turn screen black
             m_scale = 1;
         }
+//        std::cout << m_scale << std::endl;
 }
 
 void Dialog::displayInformation()
@@ -259,4 +280,11 @@ void Dialog::displayInformation()
 void Dialog::centreView ()
 {
     m_key = '/';
+}
+
+void Dialog::viewAll()
+{
+    m_scaleFlag = true;
+    m_scale = m_scale/10; //or use any other step for zooming
+//    std::cout << m_scale << std::endl;
 }

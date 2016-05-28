@@ -40,6 +40,8 @@ private slots:
     void displayInformation();
     //centre view
     void centreView();
+    //view all planets
+    void viewAll();
 
 
 private:
@@ -67,10 +69,19 @@ private:
     QPushButton* m_buttonDecelerate;
     QPushButton* m_buttonDisplayInfo;
     QPushButton* m_centre;
+    QPushButton* m_allObjects;
 
     int m_speed = 1000;
     int m_numScheduledScalings = 0;
     qreal m_scale = 1;
+
+    qreal m_xMaxA;
+    qreal m_yMaxA;
+    qreal m_xMaxB;
+    qreal m_yMaxB;
+    qreal m_sx;
+    qreal m_sy;
+    bool m_scaleFlag = false;
 
     QPainter m_painter;
     char m_key;

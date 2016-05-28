@@ -26,6 +26,7 @@ void VisitorDisplay::visit(UniverseBody &body)
     }
 
     std::cout << body.getName() << " is a child of the " << body.getParentName() << " " << parent_type <<  std::endl;
+    std::cout << "X: " << body.getPositionX() << " Y: " << body.getPositionY() << std::endl;
 
 }
 
