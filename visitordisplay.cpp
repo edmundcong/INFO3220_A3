@@ -2,21 +2,36 @@
 
 VisitorDisplay::VisitorDisplay()
 {
+//  m_planetaryInfo = new QLabel("Test label",);
+//  m_planetaryInfo->setGeometry(QRect(QPoint(600, 0), QSize(100, 50)));
 
+  std::cout << "Test" << std::endl;
 }
 
 void VisitorDisplay::visit(UniverseBody &body)
 {
-    std::cout << body.getName() << std::endl;
-    std::cout << body.getPositionX() << std::endl;
-    std::cout << body.getPositionY() << std::endl;
+    std::string parent_type = "";
+
+    if (body.getType() == 0 || body.getType() == 1)
+    {
+        parent_type = "solarsystem";
+    }
+    else if (body.getType() == 2 || body.getType() == 3)
+    {
+        parent_type = "galaxy";
+    }
+    else if(body.getType() == 4)
+    {
+        parent_type = "cluster";
+    }
+
+    std::cout << body.getName() << " is a child of the " << body.getParentName() << " " << parent_type <<  std::endl;
+
 }
 
-void VisitorDisplay::visit(UniverseComposite &composite)
+void VisitorDisplay::visit(UniverseComposite &planetaryBodies)
 {
-    std::vector<UniverseComponent*> children = composite.getChildren();
-
-    for(UniverseComponent* child : children)
+    for(UniverseComponent* child : planetaryBodies.getChildren())
     {
         child->accept(*this);
     }

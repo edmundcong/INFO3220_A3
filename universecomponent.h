@@ -12,6 +12,8 @@ enum UniverseComponentType { planet, star, blackhole, solarsystem, galaxy, clust
 
 //forward declaration
 class UniverseBody;
+
+//forward declaration of the visitor
 class Visitor;
 
 class UniverseComponent {
@@ -24,7 +26,7 @@ public:
         : m_type(type), m_name(name), m_parentName(parentName) { }
     virtual ~UniverseComponent() { }
 
-    //accept visitor method
+    //accept visitor method for element heirarhcy
     virtual void accept(Visitor& v) = 0;
 
     //composite operation: render the subtree

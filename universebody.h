@@ -2,6 +2,8 @@
 #define UNIVERSEBODY_H
 
 #include "visitor.h"
+#include <QPushButton>
+
 
 class UniverseBody : public UniverseComponent
 {
@@ -14,7 +16,7 @@ public:
     virtual ~UniverseBody() {}
 
     //Accept visitor
-    virtual void accept(Visitor & v) { v.visit(*this); }
+    virtual void accept(Visitor& v) { v.visit(*this); }
 
     /*********************************************
      * Inherited methods from UniverseComponent
@@ -71,6 +73,7 @@ private:
     double m_radius;
     double m_mass;
     QColor m_color;
+    QPushButton m_button;
 };
 
 #endif // UNIVERSEBODY_H

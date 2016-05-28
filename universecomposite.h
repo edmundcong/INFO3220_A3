@@ -1,10 +1,10 @@
 #ifndef UNIVERSECOMPOSITE_H
 #define UNIVERSECOMPOSITE_H
 
-//#include "universecomponent.h"
 #include "visitor.h"
 #include <string>
 #include <vector>
+
 
 class UniverseComposite : public UniverseComponent {
 

@@ -9,6 +9,7 @@
 #include <iostream>
 #include <QGraphicsView>
 
+
 #define WIDTH 800
 #define HEIGHT 800
 
@@ -38,8 +39,6 @@ Dialog::Dialog(QWidget *parent)
     ui->setupUi(this);
     this->resize(m_width, m_height);
 
-
-
     //create the buttons
     m_buttonPause = new QPushButton("Pause", this);
     m_buttonZodiacs = new QPushButton("Zodiacs", this);
@@ -47,18 +46,21 @@ Dialog::Dialog(QWidget *parent)
     m_buttonAccelerate = new QPushButton("Accelerate", this);
     m_buttonDecelerate = new QPushButton("Decelerate", this);
     m_centre = new QPushButton("Centre View", this);
+    m_buttonDisplayInfo = new QPushButton("Display bodies", this);
     m_buttonPause->setGeometry(QRect(QPoint(0, 0), QSize(100, 50)));
     m_buttonZodiacs->setGeometry(QRect(QPoint(100, 0), QSize(100, 50)));
     m_buttonLabels->setGeometry(QRect(QPoint(200, 0), QSize(100, 50)));
     m_buttonAccelerate->setGeometry(QRect(QPoint(300, 0), QSize(100, 50)));
     m_buttonDecelerate->setGeometry(QRect(QPoint(400, 0), QSize(100, 50)));
-    m_centre->setGeometry(QRect(QPoint(500, 0), QSize(100, 50)));
+     m_centre->setGeometry(QRect(QPoint(500, 0), QSize(100, 50)));
+    m_buttonDisplayInfo->setGeometry(QRect(QPoint(600,0), QSize(100, 50)));
     connect(m_buttonAccelerate, SIGNAL(released()), this, SLOT(toggleAccelerate()));
     connect(m_buttonDecelerate, SIGNAL(released()), this, SLOT(toggleDecelerate()));
     connect(m_buttonPause, SIGNAL(released()), this, SLOT(togglePause()));
     connect(m_buttonZodiacs, SIGNAL(released()), this, SLOT(toggleZodiacs()));
     connect(m_buttonLabels, SIGNAL(released()), this, SLOT(toggleLabels()));
     connect(m_centre, SIGNAL(released()), this, SLOT(centreView()));
+    connect(m_buttonDisplayInfo, SIGNAL(released()), this, SLOT(displayInformation()));
 
     //setup timer
     m_timer = new QTimer(this);
@@ -77,7 +79,6 @@ Dialog::~Dialog()
     delete m_zodiacs;
     delete m_buttonAccelerate;
     delete m_buttonDecelerate;
-    delete m_centre;
 
 }
 
@@ -105,6 +106,8 @@ void Dialog::toggleAccelerate()
     }
     m_timer->start((m_speed) / m_config->getFramesPerSecond());
 
+    std::cout << m_speed << std::endl;
+
 }
 
 void Dialog::toggleDecelerate()
@@ -112,6 +115,9 @@ void Dialog::toggleDecelerate()
     //speed can always be increased
     m_speed = m_speed + 1000;
     m_timer->start((m_speed) / m_config->getFramesPerSecond());
+
+    std::cout << m_speed << std::endl;
+
 }
 
 void Dialog::pause(bool pause)
@@ -234,7 +240,7 @@ void Dialog::paintEvent(QPaintEvent *event)
     m_painter.end();
 }
 
-void Dialog::wheelEvent(QWheelEvent * event)
+void Dialog::wheelEvent (QWheelEvent * event )
 {
         m_scale+=(event->delta()/120); //or use any other step for zooming
         if (m_scale == 0){ //scale = 0 will turn screen black
@@ -242,15 +248,15 @@ void Dialog::wheelEvent(QWheelEvent * event)
         }
 }
 
+void Dialog::displayInformation()
+{
+    VisitorDisplay dv;
+
+    m_universe->accept(dv);
+
+
+}
 void Dialog::centreView ()
 {
     m_key = '/';
 }
-
-void Dialog::displayInformation()
-{
-    VisitorDisplay dv;
-    m_universe->accept(dv);
-}
-
-

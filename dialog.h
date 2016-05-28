@@ -6,9 +6,9 @@
 #include "zodiac.h"
 #include "visitordisplay.h"
 #include <QDialog>
+#include <QLabel>
 #include <QTimer>
 #include <list>
-#include <QPainter>
 
 
 namespace Ui {
@@ -23,8 +23,6 @@ public:
     explicit Dialog(QWidget *parent = 0);
     virtual ~Dialog();
 
-    void displayInformation();
-
 private slots:
     //prepare the next frame, called by the timer
     void nextFrame();
@@ -38,8 +36,11 @@ private slots:
     void toggleAccelerate();
     //pressed decelerate
     void toggleDecelerate();
+    //display information for the planet that was clicked on
+    void displayInformation();
     //centre view
     void centreView();
+
 
 private:
     //method called when the window is being redrawn
@@ -48,6 +49,7 @@ private:
     void pause(bool pause);
     //handle key presses
     void keyPressEvent(QKeyEvent *event);
+    //handle mouse wheel
     void wheelEvent(QWheelEvent *);
 
 
@@ -63,6 +65,7 @@ private:
     //buttons for UI stage 3
     QPushButton* m_buttonAccelerate;
     QPushButton* m_buttonDecelerate;
+    QPushButton* m_buttonDisplayInfo;
     QPushButton* m_centre;
 
     int m_speed = 1000;
