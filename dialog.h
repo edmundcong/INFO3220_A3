@@ -5,6 +5,9 @@
 #include "universecomponent.h"
 #include "zodiac.h"
 #include "visitordisplay.h"
+#include "fetchfurthestbodies.h"
+#include "visibility.h"
+#include "reset.h"
 #include <QDialog>
 #include <QLabel>
 #include <QTimer>
@@ -42,6 +45,10 @@ private slots:
     void centreView();
     //view all planets
     void viewAll();
+    //make planets invisible
+    void toggleVisibility();
+    //reset position of all objects
+    void resetAll();
 
 
 private:
@@ -70,6 +77,8 @@ private:
     QPushButton* m_buttonDisplayInfo;
     QPushButton* m_centre;
     QPushButton* m_allObjects;
+    QPushButton* m_planetsVisiblity;
+    QPushButton* m_reset;
 
     int m_speed = 1000;
     int m_numScheduledScalings = 0;
@@ -79,8 +88,9 @@ private:
     qreal m_yMaxA;
     qreal m_xMaxB;
     qreal m_yMaxB;
-    qreal m_sx;
-    qreal m_sy;
+    qreal m_sx = 1;
+    qreal m_sy = 1;
+    qreal m_showFlag = 1;
     bool m_scaleFlag = false;
 
     QPainter m_painter;

@@ -14,9 +14,12 @@ UniverseBody::UniverseBody(
         , m_yVelocity(0.0)
         , m_xPosition(0.0)
         , m_yPosition(0.0)
+        , m_initialXPos(0.0)
+        , m_initialYPos(0.0)
         , m_radius(1.0)
         , m_mass(1.0)
         , m_color(Qt::white)
+        , m_altColour(Qt::black)
 { }
 
 void UniverseBody::render(QPainter& painter) const

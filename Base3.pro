@@ -21,7 +21,10 @@ SOURCES += main.cpp\
     config.cpp \
     zodiac.cpp \
     universecomponentfactory.cpp \
-    visitordisplay.cpp
+    visitordisplay.cpp \
+    fetchfurthestbodies.cpp \
+    visibility.cpp \
+    reset.cpp
 
 HEADERS  += dialog.h \
     universecomponent.h \
@@ -31,7 +34,10 @@ HEADERS  += dialog.h \
     zodiac.h \
     universecomponentfactory.h \
     visitor.h \
-    visitordisplay.h
+    visitordisplay.h \
+    fetchfurthestbodies.h \
+    visibility.h \
+    reset.h
 
 FORMS    += dialog.ui
 

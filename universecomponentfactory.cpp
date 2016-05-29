@@ -121,6 +121,9 @@ UniverseComponent* UniverseComponentFactory::createLeaf(
     //build the body:
     UniverseBody* component = new UniverseBody(type, name, parentName);
     component->setPosition(position_x, position_y);
+    component->setInitialXPosition(position_x);
+    component->setInitialYPosition(position_y);
+    std::cout << position_x << " : " << position_y << std::endl;
     component->setVelocity(velocity_x, velocity_y);
     component->setRadius(radius);
     component->setMass(mass);
@@ -149,6 +152,8 @@ UniverseComponent* UniverseComponentFactory::createComposite(
 
     //build the body:
     UniverseComposite* component = new UniverseComposite(type, name, parentName);
+    component->setInitialXPosition(position_x);
+    component->setInitialYPosition(position_y);
     component->setPosition(position_x, position_y);
     component->setVelocity(velocity_x, velocity_y);
 

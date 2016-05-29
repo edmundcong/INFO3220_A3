@@ -19,7 +19,7 @@ public:
     virtual void add(UniverseComponent* component) { m_children.push_back(component); }
 
     //Accept visitor
-    virtual void accept(Visitor& v) { v.visit(*this); }
+    virtual void accept(Visitor& v);
     virtual std::vector<UniverseComponent*> getChildren() { return m_children; }
 
     /*********************************************
@@ -40,6 +40,10 @@ public:
     //propagates the position and velocity of each object down to it's children
     //this should only be called ONCE
     void convertRelativeToAbsolute(double xp, double yp, double xv, double yv);
+    double getInitialPositionX() const { return m_initialXPos; }
+    double getInitialPositionY() const { return m_initialYPos; }
+    void setInitialXPosition(double x) { m_initialXPos = x; }
+    void setInitialYPosition(double y) { m_initialYPos = y; }
 
 private:
     std::vector<UniverseComponent*> m_children;
@@ -49,7 +53,8 @@ private:
     double m_yVelocity;
     double m_xPosition;
     double m_yPosition;
-
+    double m_initialXPos;
+    double m_initialYPos;
 };
 
 #endif // UNIVERSECOMPOSITE_H

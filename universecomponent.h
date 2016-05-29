@@ -55,10 +55,12 @@ public:
     const std::string& getParentName() const { return m_parentName; }
     UniverseComponentType getType() const { return m_type; }
 
+
 private:
     UniverseComponentType m_type;
     std::string m_name;
     std::string m_parentName;
+
 
 };
 

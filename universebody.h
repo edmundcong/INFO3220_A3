@@ -61,6 +61,13 @@ public:
     void setRadius(const double& radius) { m_radius = radius; }
     void setMass(const double& mass) { m_mass = mass; }
     void setColor(const QColor& color) { m_color = color; }
+    void setAltColour(const QColor& colour) {m_altColour = colour; }
+    const QColor& getAltColour() const { return m_altColour; }
+
+    double getInitialPositionX() const { return m_initialXPos; }
+    double getInitialPositionY() const { return m_initialYPos; }
+    void setInitialXPosition(double x) { m_initialXPos = x; }
+    void setInitialYPosition(double y) { m_initialYPos = y; }
 
 private:
     double m_xForce;
@@ -69,11 +76,14 @@ private:
     double m_yVelocity;
     double m_xPosition;
     double m_yPosition;
+    double m_initialXPos;
+    double m_initialYPos;
 
     double m_radius;
     double m_mass;
     QColor m_color;
-    QPushButton m_button;
+    QColor m_altColour;
+//    QPushButton m_button;
 };
 
 #endif // UNIVERSEBODY_H

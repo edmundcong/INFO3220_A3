@@ -9,6 +9,8 @@ UniverseComposite::UniverseComposite(
         , m_yVelocity(0.0)
         , m_xPosition(0.0)
         , m_yPosition(0.0)
+        , m_initialXPos(0.0)
+        , m_initialYPos(0.0)
 { }
 
 UniverseComposite::~UniverseComposite()
@@ -33,6 +35,16 @@ void UniverseComposite::renderLabel(QPainter& painter) const
     for(UniverseComponent* child : m_children)
     {
         child->renderLabel(painter);
+    }
+}
+
+void UniverseComposite::accept(Visitor &v)
+{
+    v.visit(*this);
+
+    for (UniverseComponent* child : m_children)
+    {
+        child->accept(v);
     }
 }
 

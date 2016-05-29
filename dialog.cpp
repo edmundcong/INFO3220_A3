@@ -10,8 +10,8 @@
 #include <QGraphicsView>
 
 
-#define WIDTH 800
-#define HEIGHT 800
+#define WIDTH 900
+#define HEIGHT 900
 
 Dialog::Dialog(QWidget *parent)
     : QDialog(parent)
@@ -48,6 +48,8 @@ Dialog::Dialog(QWidget *parent)
     m_centre = new QPushButton("Centre View", this);
     m_buttonDisplayInfo = new QPushButton("Display bodies", this);
     m_allObjects = new QPushButton("View all planets", this);
+    m_planetsVisiblity = new QPushButton("Show Planets", this);
+    m_reset = new QPushButton("Reset Planets", this);
 
     m_buttonPause->setGeometry(QRect(QPoint(0, 0), QSize(100, 50)));
     m_buttonZodiacs->setGeometry(QRect(QPoint(100, 0), QSize(100, 50)));
@@ -57,6 +59,8 @@ Dialog::Dialog(QWidget *parent)
     m_centre->setGeometry(QRect(QPoint(500, 0), QSize(100, 50)));
     m_buttonDisplayInfo->setGeometry(QRect(QPoint(600,0), QSize(100, 50)));
     m_allObjects->setGeometry(QRect(QPoint(700,0), QSize(100, 50)));
+    m_planetsVisiblity->setGeometry(QRect(QPoint(800,0), QSize(100, 50)));
+    m_reset->setGeometry(QRect(QPoint(0,50), QSize(100, 50)));
 
     connect(m_buttonAccelerate, SIGNAL(released()), this, SLOT(toggleAccelerate()));
     connect(m_buttonDecelerate, SIGNAL(released()), this, SLOT(toggleDecelerate()));
@@ -66,6 +70,8 @@ Dialog::Dialog(QWidget *parent)
     connect(m_centre, SIGNAL(released()), this, SLOT(centreView()));
     connect(m_buttonDisplayInfo, SIGNAL(released()), this, SLOT(displayInformation()));
     connect(m_allObjects, SIGNAL(released()), this, SLOT(viewAll()));
+    connect(m_planetsVisiblity, SIGNAL(released()), this, SLOT(toggleVisibility()));
+    connect(m_reset, SIGNAL(released()), this, SLOT(resetAll()));
 
     //setup timer
     m_timer = new QTimer(this);
@@ -87,6 +93,8 @@ Dialog::~Dialog()
     delete m_centre;
     delete m_buttonDisplayInfo;
     delete m_allObjects;
+    delete m_planetsVisiblity;
+    delete m_reset;
 }
 
 void Dialog::toggleZodiacs()
@@ -228,20 +236,8 @@ void Dialog::paintEvent(QPaintEvent *event)
         break;
     }
 
-    if (m_scaleFlag == true)
-    {
-        /* ignore these 2 values. we need to change these 2 x and y
-           values to utilise the furthest 2 objects we get retured from our
-           visitor search algorithm we run on our universe.
-           problem: how do we do this? just plugging in the x and y values wont work
-           for scaling reasons. we need to find some sort of way to process both these
-           coordinates into 1 x value and 1 y value s.t. pressing the "View All Planets"
-           button will show the 2 furthest planets on the boarder and all other planets in between */
-        m_painter.scale(m_sx/10,m_sy/10);
-    } else {
-        //Scales the coordinate system by (sx, sy).
-        m_painter.scale(m_scale, m_scale);
-    }
+    m_painter.scale(m_scale, m_scale);
+
     if(m_renderZodiacs)
     {
         for(auto zodiac : *m_zodiacs)
@@ -261,7 +257,7 @@ void Dialog::paintEvent(QPaintEvent *event)
 
 void Dialog::wheelEvent (QWheelEvent * event )
 {
-        m_scaleFlag = false;
+        //m_scaleFlag = false;
         m_scale+=(event->delta()/120); //or use any other step for zooming
         if (m_scale == 0){ //scale = 0 will turn screen black
             m_scale = 1;
@@ -285,9 +281,30 @@ void Dialog::centreView ()
 
 void Dialog::viewAll()
 {
-    m_scaleFlag = true;
-    m_sx = 1;
-    m_sy = 1;
-    //m_scale = 3.74027e+12; //or use any other step for zooming
-//    std::cout << m_scale << std::endl;
+    if (m_scaleFlag == false) {
+        fetchFurthestBodies fb;
+        m_universe->accept(fb);
+        fb.convertCoordinates();
+
+        m_scale = fb.m_sx / fb.m_sy;
+        m_scaleFlag = true;
+
+        std::cout << m_scale << std::endl;
+
+    } else if (m_scaleFlag == true){
+        m_scaleFlag = false;
+        m_scale = 1;
+    }
+}
+
+void Dialog::toggleVisibility()
+{
+    visibility v;
+    m_universe->accept(v);
+}
+
+void Dialog::resetAll()
+{
+    reset r;
+    m_universe->accept(r);
 }
