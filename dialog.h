@@ -58,7 +58,6 @@ private slots:
     bool testSpeed();
     bool testWidth();
     bool testHeight();
-    bool testTimestamp();
 
 
 private:
