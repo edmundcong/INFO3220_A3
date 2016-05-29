@@ -362,8 +362,3 @@ bool Dialog::testHeight()
         return false;
     }
 }
-
-bool Dialog::testTimestamp()
-{
-
-}
