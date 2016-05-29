@@ -123,7 +123,6 @@ UniverseComponent* UniverseComponentFactory::createLeaf(
     component->setPosition(position_x, position_y);
     component->setInitialXPosition(position_x);
     component->setInitialYPosition(position_y);
-    std::cout << position_x << " : " << position_y << std::endl;
     component->setVelocity(velocity_x, velocity_y);
     component->setRadius(radius);
     component->setMass(mass);

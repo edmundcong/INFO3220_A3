@@ -38,7 +38,6 @@ public:
     void setPosition(double x, double y) { m_xPosition = x; m_yPosition = y; }
     void setVelocity(double x, double y) { m_xVelocity = x; m_yVelocity = y; }
     //propagates the position and velocity of each object down to it's children
-    //this should only be called ONCE
     void convertRelativeToAbsolute(double xp, double yp, double xv, double yv);
     double getInitialPositionX() const { return m_initialXPos; }
     double getInitialPositionY() const { return m_initialYPos; }

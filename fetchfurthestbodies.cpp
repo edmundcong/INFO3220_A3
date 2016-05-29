@@ -5,10 +5,10 @@ fetchFurthestBodies::fetchFurthestBodies()
     m_sx = 0;
     m_sy = 0;
 
-    m_x1 = 0; //left
-    m_x2 = 0; //right
-    m_y1 = 0; //top
-    m_y2 = 0; //bot
+    m_x1 = 0;
+    m_x2 = 0;
+    m_y1 = 0;
+    m_y2 = 0;
 }
 
 void fetchFurthestBodies::visit(UniverseBody &body)

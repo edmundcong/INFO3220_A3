@@ -2,10 +2,6 @@
 
 VisitorDisplay::VisitorDisplay()
 {
-//  m_planetaryInfo = new QLabel("Test label",);
-//  m_planetaryInfo->setGeometry(QRect(QPoint(600, 0), QSize(100, 50)));
-
-  std::cout << "Test" << std::endl;
 }
 
 void VisitorDisplay::visit(UniverseBody &body)

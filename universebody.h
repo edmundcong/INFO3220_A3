@@ -83,7 +83,6 @@ private:
     double m_mass;
     QColor m_color;
     QColor m_altColour;
-//    QPushButton m_button;
 };
 
 #endif // UNIVERSEBODY_H

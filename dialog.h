@@ -26,6 +26,9 @@ public:
     explicit Dialog(QWidget *parent = 0);
     virtual ~Dialog();
 
+    //Test framework functions
+    int getSpeed() { return m_speed; }
+
 private slots:
     //prepare the next frame, called by the timer
     void nextFrame();
@@ -49,6 +52,13 @@ private slots:
     void toggleVisibility();
     //reset position of all objects
     void resetAll();
+    //print testing framework
+    void testingFramework();
+    //testing functions
+    bool testSpeed();
+    bool testWidth();
+    bool testHeight();
+    bool testTimestamp();
 
 
 private:
@@ -79,6 +89,7 @@ private:
     QPushButton* m_allObjects;
     QPushButton* m_planetsVisiblity;
     QPushButton* m_reset;
+    QPushButton* m_tests;
 
     int m_speed = 1000;
     int m_numScheduledScalings = 0;

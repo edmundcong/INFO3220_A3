@@ -50,6 +50,7 @@ Dialog::Dialog(QWidget *parent)
     m_allObjects = new QPushButton("View all planets", this);
     m_planetsVisiblity = new QPushButton("Show Planets", this);
     m_reset = new QPushButton("Reset Planets", this);
+    m_tests = new QPushButton("Print Testing Framework Results", this);
 
     m_buttonPause->setGeometry(QRect(QPoint(0, 0), QSize(100, 50)));
     m_buttonZodiacs->setGeometry(QRect(QPoint(100, 0), QSize(100, 50)));
@@ -61,6 +62,7 @@ Dialog::Dialog(QWidget *parent)
     m_allObjects->setGeometry(QRect(QPoint(700,0), QSize(100, 50)));
     m_planetsVisiblity->setGeometry(QRect(QPoint(800,0), QSize(100, 50)));
     m_reset->setGeometry(QRect(QPoint(0,50), QSize(100, 50)));
+    m_tests->setGeometry(QRect(QPoint(100,50), QSize(250, 50)));
 
     connect(m_buttonAccelerate, SIGNAL(released()), this, SLOT(toggleAccelerate()));
     connect(m_buttonDecelerate, SIGNAL(released()), this, SLOT(toggleDecelerate()));
@@ -72,6 +74,8 @@ Dialog::Dialog(QWidget *parent)
     connect(m_allObjects, SIGNAL(released()), this, SLOT(viewAll()));
     connect(m_planetsVisiblity, SIGNAL(released()), this, SLOT(toggleVisibility()));
     connect(m_reset, SIGNAL(released()), this, SLOT(resetAll()));
+    connect(m_tests, SIGNAL(released()), this, SLOT(testingFramework()));
+
 
     //setup timer
     m_timer = new QTimer(this);
@@ -257,13 +261,10 @@ void Dialog::paintEvent(QPaintEvent *event)
 
 void Dialog::wheelEvent (QWheelEvent * event )
 {
-        //m_scaleFlag = false;
         m_scale+=(event->delta()/120); //or use any other step for zooming
         if (m_scale == 0){ //scale = 0 will turn screen black
             m_scale = 1;
         }
-
-//        std::cout << m_scale << std::endl;
 }
 
 void Dialog::displayInformation()
@@ -289,9 +290,8 @@ void Dialog::viewAll()
         m_scale = fb.m_sx / fb.m_sy;
         m_scaleFlag = true;
 
-        std::cout << m_scale << std::endl;
-
-    } else if (m_scaleFlag == true){
+    } else if (m_scaleFlag == true)
+    {
         m_scaleFlag = false;
         m_scale = 1;
     }
@@ -307,4 +307,63 @@ void Dialog::resetAll()
 {
     reset r;
     m_universe->accept(r);
+}
+
+void Dialog::testingFramework()
+{
+    std::cout << "TEST RESULTS (0 FALSE 1 TRUE):" << std::endl;
+
+    bool speedResult = testSpeed();
+    bool widthResult = testWidth();
+    bool heightResult = testHeight();
+
+    int success = 0;
+
+    if (speedResult == 1) success++;
+    if (widthResult == 1) success++;
+    if (heightResult == 1) success++;
+
+    std::cout << "TEST SPEED: " << speedResult << std::endl;
+    std::cout << "TEST HEIGHT: " << widthResult << std::endl;
+    std::cout << "TEST WIDTH: " << heightResult << std::endl;
+    std::cout << "TESTS PASSED: " << success << std::endl;
+
+}
+
+bool Dialog::testSpeed()
+{
+    int expected = 1000;
+    int actual = getSpeed();
+    if (expected == actual){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Dialog::testWidth()
+{
+    int expected = 900;
+    int actual = this->m_width;
+    if (expected == actual){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Dialog::testHeight()
+{
+    int expected = 900;
+    int actual = this->m_height;
+    if (expected == actual){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+bool Dialog::testTimestamp()
+{
+
 }
